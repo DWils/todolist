@@ -1,34 +1,31 @@
-# To-Do List Application
+# To-Do List
 
-This is a simple To-Do List application that allows users to manage their tasks efficiently. Users can add new tasks, mark them as complete, and remove tasks from the list.
+A simple and interactive to-do list application to manage your daily tasks.
 
-## Project Structure
-
-The project consists of the following files:
-
-- `index.html`: The main HTML document that contains the structure of the web page.
-- `style.css`: The stylesheet that defines the visual appearance of the application.
-- `script.js`: The JavaScript file that contains the logic for managing tasks and user interactions.
-- `README.md`: This documentation file.
+## Live Demo
+Users can visit this project using the following URL: [https://dwils.github.io/todolist/](https://dwils.github.io/todolist/)
 
 ## Features
+- Add tasks to your list.
+- Edit or delete tasks.
+- Mark tasks as completed (with a line-through effect).
+- Save tasks in local storage so they persist even after refreshing the page.
+- Clear all tasks at once.
 
-- Add new tasks to the list.
-- Mark tasks as complete.
-- Remove tasks from the list.
+## Technologies Used
+- HTML
+- CSS
+- JavaScript
+- Local Storage
 
-## Setup Instructions
+## How to Use
+1. Enter a task in the input field and click "Ajouter" to add it to the list.
+2. Click on a task to mark it as completed.
+3. Use the ✏️ button to edit a task or the 🗑️ button to delete it.
+4. Click "Effacer tout" to clear all tasks.
 
-1. Clone the repository to your local machine.
-2. Open the `index.html` file in a web browser to view the application.
-3. Use the input field to add tasks and interact with the buttons to manage your to-do list.
+## Setup
+1. Clone the repository.
+2. Open `index.html` in your browser to view the application.
 
-## Usage
-
-- To add a task, type the task description in the input field and click the "Add" button.
-- To mark a task as complete, click the checkbox next to the task.
-- To remove a task, click the "Remove" button next to the task.
-
-## License
-
-This project is open-source and available for use and modification.
+Enjoy managing your tasks!
