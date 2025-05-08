@@ -1,0 +1,5 @@
+[V] Ajout d'une tâche
+[V] Modification de la tâche
+[V] Suppression de la tâche
+[V] Ajout de deux tâches
+[V] Effacement complet des tâches
