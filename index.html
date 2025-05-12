@@ -10,15 +10,15 @@
   <div class="container">
     <h1>To-Do List</h1>
     <input type="text" id="taskInput" placeholder="Ajouter une tâche..." />
+    <p id="errorMessage" style="color: red; display: none;">Le champ de tâche est vide. Veuillez entrer une tâche.</p>
     <button id="addTaskButton">Ajouter</button>
     <div id="filters">
       <button id="allTasksButton">Toutes</button>
       <button id="activeTasksButton">Actives</button>
-      <button id="completedTasksButton">Terminés</button>
+      <button id="completedTasksButton">Terminées</button>
     </div>
     <ul id="taskList"></ul>
-    <button id="clearAllButton">Effacer les tâches terminés</button>
-   
+    <button id="clearCompletedTasksButton">Effacer les tâches terminées</button>
   </div>
   <script src="script.js"></script>
 </body>

@@ -2,17 +2,25 @@
 const taskInput = document.getElementById("taskInput");
 const addTaskButton = document.getElementById("addTaskButton");
 const taskList = document.getElementById("taskList");
-const clearCompletedTasksButton = document.getElementById("clearAllButton");
+const clearCompletedTasksButton = document.getElementById("clearCompletedTasksButton");
 
 // Sélectionner les boutons de filtre
 const allTasksButton = document.getElementById("allTasksButton");
 const activeTasksButton = document.getElementById("activeTasksButton");
 const completedTasksButton = document.getElementById("completedTasksButton");
 
+// Select filter buttons
+const filterButtons = document.querySelectorAll("#filters button");
+
 // Fonction pour charger les tâches avec un filtre
 function loadTasks(filter = "all") {
     const tasks = JSON.parse(localStorage.getItem("tasks")) || [];
     taskList.innerHTML = ""; // Vider la liste avant de la remplir
+
+    // Toggle visibility of filter buttons and clearCompletedTasksButton
+    const hasTasks = tasks.length > 0;
+    document.getElementById("filters").style.display = hasTasks ? "flex" : "none";
+    clearCompletedTasksButton.style.display = hasTasks ? "block" : "none";
 
     // Appliquer le filtre
     const filteredTasks = tasks.filter(task => {
@@ -55,13 +63,19 @@ function toggleTaskCompletion(checkbox, index) {
 // Ajouter une tâche
 addTaskButton.addEventListener("click", () => {
     const task = taskInput.value.trim();
-    if (task !== "") {
-        const tasks = JSON.parse(localStorage.getItem("tasks")) || [];
-        tasks.push({ text: task, completed: false });
-        localStorage.setItem("tasks", JSON.stringify(tasks));
-        loadTasks(); // Recharger les tâches
-        taskInput.value = ""; // Réinitialiser le champ de saisie
+    const errorMessage = document.getElementById("errorMessage");
+
+    if (task === "") {
+        errorMessage.style.display = "block"; // Show the error message
+        return;
     }
+
+    errorMessage.style.display = "none"; // Hide the error message if input is valid
+    const tasks = JSON.parse(localStorage.getItem("tasks")) || [];
+    tasks.push({ text: task, completed: false });
+    localStorage.setItem("tasks", JSON.stringify(tasks));
+    taskInput.value = ""; // Clear the input field
+    loadTasks(); // Reload the task list
 });
 
 // Supprimer une tâche
@@ -94,9 +108,31 @@ clearCompletedTasksButton.addEventListener("click", () => {
 });
 
 // Ajouter des gestionnaires d'événements pour les boutons de filtre
-allTasksButton.addEventListener("click", () => loadTasks("all"));
-activeTasksButton.addEventListener("click", () => loadTasks("active"));
-completedTasksButton.addEventListener("click", () => loadTasks("completed"));
+allTasksButton.addEventListener("click", () => {
+    setActiveFilter("all");
+    loadTasks("all");
+});
+
+activeTasksButton.addEventListener("click", () => {
+    setActiveFilter("active");
+    loadTasks("active");
+});
+
+completedTasksButton.addEventListener("click", () => {
+    setActiveFilter("completed");
+    loadTasks("completed");
+});
+
+// Function to set the active filter button
+function setActiveFilter(filter) {
+    filterButtons.forEach(button => {
+        button.classList.remove("active"); // Remove active class from all buttons
+    });
+    document.getElementById(`${filter}TasksButton`).classList.add("active"); // Add active class to the clicked button
+}
+
+// Set default active filter on page load
+setActiveFilter("all");
 
 // Charger toutes les tâches au démarrage
 loadTasks();

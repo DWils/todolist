@@ -14,7 +14,7 @@ Users can visit this project using the following URL: [https://dwils.github.io/t
 - Filter tasks by:
   - **Toutes**: View all tasks.
   - **Actives**: View only active (incomplete) tasks.
-  - **Terminés**: View only completed tasks.
+  - **Terminées**: View only completed tasks.
 
 ## Technologies Used
 - HTML
