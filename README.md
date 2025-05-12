@@ -10,7 +10,11 @@ Users can visit this project using the following URL: [https://dwils.github.io/t
 - Edit or delete tasks.
 - Mark tasks as completed (with a line-through effect).
 - Save tasks in local storage so they persist even after refreshing the page.
-- Clear all tasks at once.
+- Clear only completed tasks.
+- Filter tasks by:
+  - **Toutes**: View all tasks.
+  - **Actives**: View only active (incomplete) tasks.
+  - **Terminés**: View only completed tasks.
 
 ## Technologies Used
 - HTML
@@ -20,9 +24,10 @@ Users can visit this project using the following URL: [https://dwils.github.io/t
 
 ## How to Use
 1. Enter a task in the input field and click "Ajouter" to add it to the list.
-2. Click on a task to mark it as completed.
-3. Use the ✏️ button to edit a task or the 🗑️ button to delete it.
-4. Click "Effacer tout" to clear all tasks.
+2. Use the filter buttons (**Toutes**, **Actives**, **Terminés**) to view tasks based on their completion status.
+3. Click on a task's checkbox to mark it as completed or uncompleted.
+4. Use the ✏️ button to edit a task or the 🗑️ button to delete it.
+5. Click "Effacer les tâches terminées" to remove only completed tasks.
 
 ## Setup
 1. Clone the repository.
