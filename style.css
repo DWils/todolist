@@ -18,7 +18,7 @@ body {
     min-height: 95vh;
   }
   
-  input, button {
+  input[type="text"], button {
     padding: 10px;
     margin: 5px;
     width: 80%;

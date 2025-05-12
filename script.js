@@ -2,13 +2,27 @@
 const taskInput = document.getElementById("taskInput");
 const addTaskButton = document.getElementById("addTaskButton");
 const taskList = document.getElementById("taskList");
-const clearAllButton = document.getElementById("clearAllButton");
+const clearCompletedTasksButton = document.getElementById("clearAllButton");
 
-// Fonction pour charger les tâches depuis localStorage
-function loadTasks() {
+// Sélectionner les boutons de filtre
+const allTasksButton = document.getElementById("allTasksButton");
+const activeTasksButton = document.getElementById("activeTasksButton");
+const completedTasksButton = document.getElementById("completedTasksButton");
+
+// Fonction pour charger les tâches avec un filtre
+function loadTasks(filter = "all") {
     const tasks = JSON.parse(localStorage.getItem("tasks")) || [];
     taskList.innerHTML = ""; // Vider la liste avant de la remplir
-    tasks.forEach((task, index) => {
+
+    // Appliquer le filtre
+    const filteredTasks = tasks.filter(task => {
+        if (filter === "completed") return task.completed;
+        if (filter === "active") return !task.completed;
+        return true; // "all" retourne toutes les tâches
+    });
+
+    // Ajouter les tâches filtrées à la liste
+    filteredTasks.forEach((task, index) => {
         addTaskToList(task, index);
     });
 }
@@ -17,13 +31,13 @@ function loadTasks() {
 function addTaskToList(task, index) {
     const li = document.createElement("li");
     li.innerHTML = `
+    <input type="checkbox" ${task.completed ? "checked" : ""} onchange="toggleTaskCompletion(this, ${index})" />
     <span>${task.text}</span>
     <div class="buttons">
         <button class="editButton" onclick="editTask(${index})">✏️</button>
         <button class="deleteButton" onclick="deleteTask(${index})">🗑️</button>
     </div>
   `;
-    li.addEventListener("click", () => toggleTaskCompletion(li, index)); // Ajouter un gestionnaire d'événement pour le clic
     if (task.completed) {
         li.classList.add("completed");
     }
@@ -31,11 +45,11 @@ function addTaskToList(task, index) {
 }
 
 // Fonction pour basculer l'état de complétion d'une tâche
-function toggleTaskCompletion(li, index) {
-    li.classList.toggle("completed");
+function toggleTaskCompletion(checkbox, index) {
     const tasks = JSON.parse(localStorage.getItem("tasks")) || [];
-    tasks[index].completed = li.classList.contains("completed");
+    tasks[index].completed = checkbox.checked; // Mettre à jour l'état de complétion
     localStorage.setItem("tasks", JSON.stringify(tasks));
+    loadTasks(); // Recharger les tâches pour refléter les changements
 }
 
 // Ajouter une tâche
@@ -70,12 +84,19 @@ function editTask(index) {
 }
 
 // Effacer toutes les tâches
-clearAllButton.addEventListener("click", () => {
-    if (confirm("Voulez-vous vraiment effacer toutes les tâches ?")) {
-        localStorage.removeItem("tasks");
+clearCompletedTasksButton.addEventListener("click", () => {
+    if (confirm("Voulez-vous vraiment effacer les tâches terminées ?")) {
+        const tasks = JSON.parse(localStorage.getItem("tasks")) || [];
+        const incompleteTasks = tasks.filter(task => !task.completed); // Garder uniquement les tâches non terminées
+        localStorage.setItem("tasks", JSON.stringify(incompleteTasks));
         loadTasks(); // Recharger les tâches
     }
 });
 
-// Charger les tâches au démarrage
+// Ajouter des gestionnaires d'événements pour les boutons de filtre
+allTasksButton.addEventListener("click", () => loadTasks("all"));
+activeTasksButton.addEventListener("click", () => loadTasks("active"));
+completedTasksButton.addEventListener("click", () => loadTasks("completed"));
+
+// Charger toutes les tâches au démarrage
 loadTasks();
