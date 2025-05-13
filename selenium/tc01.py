@@ -15,7 +15,6 @@ def test_ajout_tache_valide(setup):
     driver = setup
     task_input = driver.find_element(By.XPATH, "//input[@placeholder='Ajouter une tâche...']")
     task_input.send_keys("Tache 1")
-    task_input.send_keys(Keys.RETURN)
     send_task_button = driver.find_element(By.ID, "addTaskButton")
     send_task_button.click()
     
@@ -27,7 +26,6 @@ def test_ajout_tache_vide(setup):
     driver = setup
     task_input = driver.find_element(By.XPATH, "//input[@placeholder='Ajouter une tâche...']")
     task_input.send_keys("")
-    task_input.send_keys(Keys.RETURN)
     send_task_button = driver.find_element(By.ID, "addTaskButton")
     send_task_button.click()
 
